@@ -1,7 +1,12 @@
 @extends('welcome')
 @section('title','Bike')
 @section('content')
+<center>
+  <button id="trip-button" disabled class="btn btn-info">Confirm Trip</button>
+  <h4 id="distance">
 
+  </h4>
+</center>
 <div style="height:400px;padding:20px;margin:30px" id="map"></div>
 
 
@@ -13,8 +18,43 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
+  var pickupPoint=false;
+  var destinationPoint=false;
+  function calcCrow() 
+    {
+      lat1=pickupPoint.lat
+      lon1=pickupPoint.lng;
+      lat2=destinationPoint.lat
+      lon2=destinationPoint.lng
+      var R = 6371; // km
+      var dLat = toRad(lat2-lat1);
+      var dLon = toRad(lon2-lon1);
+      var lat1 = toRad(lat1);
+      var lat2 = toRad(lat2);
+
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      var d = R * c;
+      return d.toFixed(2);
+    }
+
+    // Converts numeric degrees to radians
+    function toRad(Value) 
+    {
+        return Value * Math.PI / 180;
+    }
+  function updateDistance(){
+    if(destinationPoint){
+      document.getElementById("distance").innerHTML="Trip distance "+calcCrow()+" KM";
+    }
+  }
     function initMap(position) {
       const myLatlng = { lat: position.coords.latitude , lng: position.coords.longitude };
+      pickupPoint={
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
       const map = new google.maps.Map(document.getElementById("map"), {
           zoom: 12,
           center: myLatlng,
@@ -37,6 +77,13 @@
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
+          pickupPoint={
+            lat:mapsMouseEvent.latLng.lat(),
+            lng:mapsMouseEvent.latLng.lng()
+          };
+         // console.log(mapsMouseEvent.latLng.lat())
+       
+          
           pickupWindow.close();
           pickupWindow = new google.maps.InfoWindow({
           position: mapsMouseEvent.latLng,
@@ -46,7 +93,13 @@
           // JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
           );
           pickupWindow.open(map);
+          updateDistance()
         } else if (result.isDenied) {
+          document.getElementById("trip-button").disabled=false;
+          destinationPoint={
+            lat:mapsMouseEvent.latLng.lat(),
+            lng:mapsMouseEvent.latLng.lng()
+          };
           if(typeof destinationWindow !== 'undefined'){
             destinationWindow.close();
           }
@@ -58,6 +111,7 @@
           // JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
           );
           destinationWindow.open(map);
+          updateDistance()
         }
       })
          
