@@ -59,6 +59,8 @@
           zoom: 12,
           center: myLatlng,
       });
+      var display = new google.maps.DirectionsRenderer();
+        var services = new google.maps.DirectionsService();
       map.setMapTypeId(google.maps.MapTypeId.HYBRID);
       // Create the initial InfoWindow.
       let pickupWindow = new google.maps.InfoWindow({
@@ -94,6 +96,21 @@
           );
           pickupWindow.open(map);
           updateDistance()
+          if(destinationPoint){
+            display.setMap(map);
+        var start = new google.maps.LatLng(pickupPoint.lat,pickupPoint.lng);
+        var end = new google.maps.LatLng(destinationPoint.lat,destinationPoint.lng);
+          var request ={
+                origin : start,
+                destination:end,
+                travelMode: 'DRIVING'
+            };
+            services.route(request,function(result,status){
+                if(status =='OK'){
+                    display.setDirections(result);
+                }
+            });
+          }
         } else if (result.isDenied) {
           document.getElementById("trip-button").disabled=false;
           destinationPoint={
@@ -112,6 +129,21 @@
           );
           destinationWindow.open(map);
           updateDistance()
+          
+        
+        display.setMap(map);
+        var start = new google.maps.LatLng(pickupPoint.lat,pickupPoint.lng);
+        var end = new google.maps.LatLng(destinationPoint.lat,destinationPoint.lng);
+          var request ={
+                origin : start,
+                destination:end,
+                travelMode: 'DRIVING'
+            };
+            services.route(request,function(result,status){
+                if(status =='OK'){
+                    display.setDirections(result);
+                }
+            });
         }
       })
          
