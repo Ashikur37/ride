@@ -1,5 +1,5 @@
  @extends('layouts.app')
-@section('title','Parcel')
+@section('title','Driver')
 @section('content')
 
 
@@ -9,7 +9,7 @@
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 	<div class="card">
 		<div class="card-header">
-			<h5 class="mb-0"> Parcel </h5>
+			<h5 class="mb-0"> Driver </h5>
 			 
 		</div>
 		<div class="card-body">
@@ -30,16 +30,18 @@
 			<table id="example4" class="table table-striped table-bordered" style="width:100%">
 					<thead>
 						<tr>
-							<th>Product Type</th>
-							<th>Receiver's Name</th>
-							<th>Mobile</th>
-							<th>Address</th>
-							<th>Weight</th>
-							<th>Order Date</th>
-							<th>Order Type</th>
-							<th>Starting Place</th>
-							<th>Order Status</th>
-							<th>Product ID</th>
+							<th>Driver Type</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>NID/Passport</th>
+							<th>NID/Passport Number</th>
+							<th>Gender</th>
+							<th>Date of Birth</th>
+							<th>Mobile No</th>
+							<th>City</th>
+							<th>Vehicle Registration Type</th>
+							<th>Vehicle Registration No</th>
+							<th>License Document</th>
 							<th>Image</th>
 							<th>Approval</th>
 							<th>Edit</th>
@@ -62,9 +64,12 @@
 							<td>{{$driver->mobile_number}}</td>
 							<td>{{$driver->city}}</td>
 							<td>{{$driver->vehicle_registration}}</td>
+							<td>{{$driver->vehicle_number}}</td>
+							<td> <a class="viewer" href="pdf/{{$driver->license_document}}" style="text-decoration: none;"> {{$driver->license_document}}</a>
+                			</td>
 							<td><img style="width: 100px" class="img-responsive" src="image/{{$driver->image}}" alt=""></td>
-
-
+ 
+	
 							<td> 
  
             @php

@@ -19,7 +19,7 @@ public function driverregister()
 
 
 
-     public function driverinput(Request $request)
+      public function driverinput(Request $request)
      {
          $this->validate($request, [
             'mobile_number'=>'required',
@@ -28,11 +28,11 @@ public function driverregister()
              ]);
          
 
-        if($request->hasFile('image'))
+        if($request->hasFile('license_document'))
         {
-            $file=$request->file('image');
+            $file=$request->file('license_document');
         $fileName=time().'.'.$file->getClientOriginalExtension();
-        $file->move('image/',$fileName);
+        $file->move('pdf/',$fileName);
 
         }
 
@@ -55,8 +55,7 @@ public function driverregister()
         $drivers->city = $request->input('city');
         $drivers->vehicle_registration = $request->input('vehicle_registration');
         $drivers->vehicle_number = $request->input('vehicle_number');
-        $drivers->license_document = $request->input('license_document');
-        $drivers->image = $fileName; 
+        $drivers->license_document = $fileName; 
         $drivers->password = $request->input('password');
  
         $drivers->save();

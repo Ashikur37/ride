@@ -60,12 +60,11 @@
                                         </li>
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{url('/Abike')}}">bike</a>
+                                            <a class="nav-link" href="{{url('/Adriver')}}">Driver</a>
                                         </li>
 
-                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{url('/Acar')}}">car</a>
-                                        </li>
+
+                                        
 
                                          
 

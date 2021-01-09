@@ -26,7 +26,7 @@ Route::get('/admin', 'adminController@admin')->name('admin');
 Route::get('/Adriver', 'tableController@Adriver');
 Route::post('/Adriversearch', 'tableController@Adriversearch')->name('Adriversearch');
 Route::get('/driverapproval/{ID}', 'tableController@driverapproval');
-
+Route::get('/driverdelete/{id}', 'tableController@driverdelete');
 
 
 

@@ -122,10 +122,7 @@
           <label for="mobile_number">Mobile Number</label>
             <input type="text" class="form-control" id="mobile_number" name="mobile_number" placeholder="Mobile Number" maxlength="20">
      </div>
-      <div class="form-group col-md-6">
-          <label for="image">Image</label>
-            <input type="file" class="form-control" id="image" name="image" placeholder="Image" maxlength="20">
-     </div>
+     
      <div class="form-group col-md-6">
                 <label for="city">City <span class="required-star">*</span></label>
                 <select data-bind="in:value" data-name="package" class="selectpicker form-control" data-live-search="true" data-width="100%"

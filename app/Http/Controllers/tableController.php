@@ -87,7 +87,7 @@ public function Alaptopsearch(Request $request)
     }
 
 
-
+//driver
 
 public function Adriver()
     {
@@ -109,17 +109,71 @@ public function Adriversearch(Request $request)
         }
 
 
- public function driverapproval($mobile_number)
+ 
+
+
+//Table Data Edit & Delete Start
+    //Edit Req
+
+           public function drivereditreq($id)
+    {
+
+        $driver = DB::select('select * from  drivers where id=?',[$id]);
+ 
+     return view('admin.driver.drivereditform',compact('driver'));
+    }
+
+
+
+
+//Edit From
+     public function driveredit(Request $request)
+   {
+            
+            if ($request->hasFile('image'))
+     {  
+
+        $file=$request->file('image');
+        $fileName=time().'.'.$file->getClientOriginalExtension();
+        $file->move('image/',$fileName);
+  
+
+      $feedback=DB::update('update drivers set driver_type=?,first_name=?,last_name=?,nidpassport=?,np_number=?,gender=?,dob=?,mobile_number=?,city=?,vehicle_registration=?,vehicle_number=?,license_document=?,image=?,password=?,approval=?,referral_code=? where id=?',[$request->driver_type,$request->first_name,$request->last_name,$request->nidpassport,$request->np_number,$request->gender,$request->dob,$request->mobile_number,$request->city,$request->vehicle_registration,$request->vehicle_number,$request->license_document,$fileName,$request->password,$request->approval,$request->referral_code,$request->id]);
+
+        }
+
+
+            else
+            {
+               $feedback=DB::update('update drivers set driver_type=?,first_name=?,last_name=?,nidpassport=?,np_number=?,gender=?,dob=?,mobile_number=?,city=?, vehicle_registration=?,vehicle_number=?,license_document=?,password=?,approval=?,referral_code=? where id=?',[$request->driver_type,$request->first_name,$request->last_name,$request->nidpassport,$request->np_number,$request->gender,$request->dob,$request->mobile_number,$request->city,$request->vehicle_registration,$request->vehicle_number,$request->license_document,$request->password,$request->approval,$request->referral_code,$request->id]);
+
+            }
+                 
+
+
+          return redirect('/Adriver');
+    }
+
+
+//Delete From
+
+   public function driverdelete($id)
+    {
+
+        $driver = DB::delete('delete from drivers where id=?',[$id]);
+
+      return redirect('/Adriver');
+
+    }
+
+
+    public function driverapproval($mobile_number)
     {
          $driver = DB::update('update drivers set approval=1  where mobile_number=?',[$mobile_number]);
 
         
       return redirect ('/Adriver');   
 }
-
-
-
-
 
 
 
