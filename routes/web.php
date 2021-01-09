@@ -227,6 +227,8 @@ Route::post('/packageinput', 'userForm@packageinput')->name('packageinput');
 //bike
 Route::get('/bike', 'userForm@bike');
 Route::post('/bikeinput', 'userForm@bikeinput')->name('bikeinput');
+Route::get('/bike/start-trip', 'BikeController@startTrip');
+Route::get('/bike/trip/{bikeTrip}', 'BikeController@bikeTrip');
 //car
 Route::get('/car', 'userForm@car');
 Route::post('/carinput', 'userForm@carinput')->name('carinput');

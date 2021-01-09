@@ -1,12 +1,19 @@
 @extends('welcome')
 @section('title','Bike')
 @section('content')
+@if(Session::has('userchklogin'))
 <center>
-  <button id="trip-button" disabled class="btn btn-info">Confirm Trip</button>
-  <h4 id="distance">
+  <button onclick="confirm()" id="trip-button" disabled class="btn btn-info">Confirm Trip</button>
 
-  </h4>
 </center>
+@else
+<center>
+  <h4>Please Login To continue</h4>
+</center>
+@endif
+<h4 id="distance">
+
+</h4>
 <div style="height:400px;padding:20px;margin:30px" id="map"></div>
 
 
@@ -20,6 +27,9 @@
 <script>
   var pickupPoint=false;
   var destinationPoint=false;
+  function confirm(){
+    window.location.href=`{{URL::to('/bike/start-trip')}}?lat1=${pickupPoint.lat}&lon1=${pickupPoint.lng}&lat2=${destinationPoint.lat}&lon2=${destinationPoint.lng}`
+  }
   function calcCrow() 
     {
       lat1=pickupPoint.lat
