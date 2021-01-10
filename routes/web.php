@@ -229,6 +229,8 @@ Route::get('/bike', 'userForm@bike');
 Route::post('/bikeinput', 'userForm@bikeinput')->name('bikeinput');
 Route::get('/bike/start-trip', 'BikeController@startTrip');
 Route::get('/bike/trip/{bikeTrip}', 'BikeController@bikeTrip');
+
+///bike/trip/confirm/
 //car
 Route::get('/car', 'userForm@car');
 Route::post('/carinput', 'userForm@carinput')->name('carinput');
@@ -306,3 +308,9 @@ Route::get('/driverlogout','driverController@driverlogout');
 
 //userprofile
 Route::get('/driverprofile', 'driverController@driverprofile');
+Route::get('/bike/pending', 'driverController@pendingBike');
+Route::get('/bike/trip/view/{bikeTrip}', 'driverController@viewBikeTrip');
+Route::get('/bike/trip/confirm/{bikeTrip}', 'driverController@confirmBikeTrip');
+//bike/trip/view/2
+
+//

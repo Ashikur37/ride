@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\BikeTrip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\driver;
+use Illuminate\Support\Facades\Session;
+
 class driverController extends Controller
 {
      
@@ -76,14 +79,27 @@ public function driverregister()
         return view('front.driver.driverloginpage');
     }
 
+public function pendingBike(){
+    $trips=BikeTrip::whereStatus(0)->latest()->get();
 
-
+    return view ('front.driver.bikeTrips',compact('trips'));
+}
+public function viewBikeTrip(BikeTrip $bikeTrip){
+    return view ('front.driver.bikeTrip',compact('bikeTrip'));
+}
+public function confirmBikeTrip(BikeTrip $bikeTrip){
+    $bikeTrip->update([
+        "status"=>1,
+        "bike_id"=>Session::get('driverchklogin')
+    ]);
+    return view('front.driver.runningBikeTrip',compact('bikeTrip'));
+    
+}
 
 public function driverlogin(Request $request)
     {
 
         $driverlogin= DB::select('select count(*) chk from drivers where mobile_number=? and password=? and approval=1', [$request->mobile_number,$request->password,$request->approval]);
-
 
         foreach ($driverlogin as $key ) {
 

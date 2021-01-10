@@ -7,7 +7,7 @@
     To
     <h4 id="to"></h4>
     <h4 id="distance"></h4>
-    
+    <a href="{{URL::to('/bike/trip/confirm/'.$bikeTrip->id)}}" class="btn btn-success" style="color:#fff">Confirm Now</a>
 </center>
 <div style="height:400px;padding:20px;margin:30px" id="map"></div>
 
@@ -20,7 +20,7 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
 <script>
-  function calcCrow() 
+    function calcCrow() 
     {
       lat1="{{$bikeTrip->lat1}}"
       lon1="{{$bikeTrip->lon1}}"
@@ -85,12 +85,9 @@ geocoder.geocode({'latLng': latlng}, function(results, status) {
 
 
 
-    function initMap(position) {
+    function initMap() {
       const myLatlng = { lat: {{$bikeTrip->lat1}} , lng: {{$bikeTrip->lon1}} };
-      pickupPoint={
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      }
+      
       const map = new google.maps.Map(document.getElementById("map"), {
           zoom: 12,
           center: myLatlng,
@@ -123,11 +120,7 @@ geocoder.geocode({'latLng': latlng}, function(results, status) {
 
       }
 
-  if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(initMap);
-} else {
-  x.innerHTML = "Geolocation is not supported by this browser.";
-}
+ initMap()
       function showPosition(position) {
 var latlon = position.coords.latitude + "," + position.coords.longitude;
 

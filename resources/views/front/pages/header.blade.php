@@ -86,7 +86,9 @@
                                         <li> <a href="{{url('/pricing')}}"> pricing </a> </li>
                                         <li> <a href="{{url('/contact')}}"> contact </a> </li>
                                          
-                                         
+                                         @if(Session::has('driverchklogin'))
+                                         <li> <a href="{{url('/bike/pending')}}"> Pending Rides ({{\DB::select('select count(*) as count from bike_trips where status=0')[0]->count}}) </a> </li>
+                                         @endif
                                         <li><span class=""> </span></li>
                                     </ul>                                                      
                                 </div>
