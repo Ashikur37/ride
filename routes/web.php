@@ -229,7 +229,7 @@ Route::get('/bike', 'userForm@bike');
 Route::post('/bikeinput', 'userForm@bikeinput')->name('bikeinput');
 Route::get('/bike/start-trip', 'BikeController@startTrip');
 Route::get('/bike/trip/{bikeTrip}', 'BikeController@bikeTrip');
-
+Route::get('/bike/trip/{bikeTrip}/{driver}', 'BikeController@bikeTripDriver');
 ///bike/trip/confirm/
 //car
 Route::get('/car', 'userForm@car');

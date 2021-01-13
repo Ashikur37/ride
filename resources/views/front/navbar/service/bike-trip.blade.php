@@ -7,8 +7,38 @@
     To
     <h4 id="to"></h4>
     <h4 id="distance"></h4>
-    
+    @if(!$bikeTrip->bike_id)
+    <h4>Available Drivers</h4>
+    @else
+    <h4>Waiting For Driver</h4>
+    <h4>{{$bikeTrip->driver->first_name." ".$bikeTrip->driver->last_name}}</h4>
+    <h4>Call now: {{$bikeTrip->driver->mobile_number}}</h4>
+    @endif
 </center>
+@if(!$bikeTrip->bike_id)
+<div class="container">
+  <table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+      @foreach($drivers as $driver)
+      <tr>
+        <td>{{$driver->first_name." ".$driver->last_name}}</td>
+        <td>{{$driver->mobile_number}}</td>
+        <td>
+          <a class="btn btn-info btn-block" style="color:#fff" href="{{URL::to('bike/trip/'.$bikeTrip->id.'/'.$driver->id)}}">Send Ride Request</a>
+        </td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+</div>
+@endif
 <div style="height:400px;padding:20px;margin:30px" id="map"></div>
 
 

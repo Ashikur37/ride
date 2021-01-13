@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BikeTrip;
+use App\driver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -22,8 +23,17 @@ class BikeController extends Controller
          return redirect(URL::to('/bike/trip/'.$trip->id));
 
     }
-    public function bikeTrip(BikeTrip $bikeTrip){   
-        return view('front.navbar.service.bike-trip',compact('bikeTrip')); 
+    public function bikeTrip(BikeTrip $bikeTrip){    
+        $drivers= driver::whereDriverType('Bike')->get();
+        return view('front.navbar.service.bike-trip',compact('bikeTrip','drivers')); 
+
+    }
+    public function bikeTripDriver(BikeTrip $bikeTrip,driver $driver){
+          
+        $bikeTrip->update([
+            "bike_id"=>$driver->id
+        ]);
+        return back(); 
 
     }
 }
