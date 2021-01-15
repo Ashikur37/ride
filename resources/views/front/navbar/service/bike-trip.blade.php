@@ -14,6 +14,11 @@
     <h4>{{$bikeTrip->driver->first_name." ".$bikeTrip->driver->last_name}}</h4>
     <h4>Call now: {{$bikeTrip->driver->mobile_number}}</h4>
     @endif
+    <h4 id="status" class="text text-warning">
+      @if($bikeTrip->status==0)
+        Waiting For Driver
+      @endif
+    </h4>
 </center>
 @if(!$bikeTrip->bike_id)
 <div class="container">
@@ -22,6 +27,7 @@
         <tr>
           <th>Name</th>
           <th>Phone</th>
+          <th>Distance</th>
           <th>Action</th>
         </tr>
     </thead>
@@ -30,6 +36,7 @@
       <tr>
         <td>{{$driver->first_name." ".$driver->last_name}}</td>
         <td>{{$driver->mobile_number}}</td>
+        <td class="distance" lat="{{$driver->lat}}" lon="{{$driver->lon}}"></td>
         <td>
           <a class="btn btn-info btn-block" style="color:#fff" href="{{URL::to('bike/trip/'.$bikeTrip->id.'/'.$driver->id)}}">Send Ride Request</a>
         </td>
@@ -50,6 +57,22 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
 <script>
+   function getDistance(lat2,lon2) 
+    {
+      lat1="{{$bikeTrip->lat1}}"
+      lon1="{{$bikeTrip->lon1}}"
+      var R = 6371; // km
+      var dLat = toRad(lat2-lat1);
+      var dLon = toRad(lon2-lon1);
+      var lat1 = toRad(lat1);
+      var lat2 = toRad(lat2);
+
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      var d = R * c;
+      return d.toFixed(2);
+    }
   function calcCrow() 
     {
       lat1="{{$bikeTrip->lat1}}"
@@ -165,5 +188,17 @@ var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&
 
 document.getElementById("map").innerHTML = "<img src='"+img_url+"'>";
 }
+$(document).ready(function(){
+  setInterval(function(){
+    $("#status").load("{{URL::to('/bike/trip/getStatus/'.$bikeTrip->id)}}",function(data){
+      if(data=="Finished"){
+        window.location.href="{{URL::to('/bike/trip/payment/'.$bikeTrip->id)}}"
+      }
+    })
+  },2000)
+  $(".distance").each(function(){
+      $(this).html(getDistance($(this).attr('lat'),$(this).attr('lon'))+"km")
+  })
+})
 </script>
 @endsection

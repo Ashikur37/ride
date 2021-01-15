@@ -87,7 +87,7 @@
                                         <li> <a href="{{url('/contact')}}"> contact </a> </li>
                                          
                                          @if(Session::has('driverchklogin'))
-                                         <li> <a href="{{url('/bike/pending')}}"> Pending Rides ({{\DB::select('select count(*) as count from bike_trips where status=0')[0]->count}}) </a> </li>
+                                         <li> <a href="{{url('/bike/pending')}}"> Pending Rides ({{\DB::select('select count(*) as count from bike_trips where status=0 and bike_id=(select id from drivers where mobile_number="'.Session::get('driverchklogin').'")')[0]->count}}) </a> </li> 
                                          @endif
                                         <li><span class=""> </span></li>
                                     </ul>                                                      

@@ -79,8 +79,10 @@ public function driverregister()
         return view('front.driver.driverloginpage');
     }
 
-public function pendingBike(){
-    $trips=BikeTrip::whereStatus(0)->latest()->get();
+public function pendingBike(){ 
+    $id=driver::where('mobile_number','=',Session::get('driverchklogin'))->first()->id;
+    
+    $trips=BikeTrip::whereStatus(0)->where('bike_id',$id)->latest()->get();
 
     return view ('front.driver.bikeTrips',compact('trips'));
 }
@@ -90,9 +92,22 @@ public function viewBikeTrip(BikeTrip $bikeTrip){
 public function confirmBikeTrip(BikeTrip $bikeTrip){
     $bikeTrip->update([
         "status"=>1,
-        "bike_id"=>Session::get('driverchklogin')
     ]);
     return view('front.driver.runningBikeTrip',compact('bikeTrip'));
+    
+}
+public function finishBikeTrip(BikeTrip $bikeTrip){
+    $bikeTrip->update([
+        "status"=>3,
+    ]);
+    return view('front.driver.runningBikeTrip',compact('bikeTrip'));
+    
+}
+public function confirmPickup(BikeTrip $bikeTrip){
+    $bikeTrip->update([
+        "status"=>2,
+    ]);
+    return view('front.driver.onGoingBikeTrip',compact('bikeTrip'));
     
 }
 
@@ -100,7 +115,6 @@ public function driverlogin(Request $request)
     {
 
         $driverlogin= DB::select('select count(*) chk from drivers where mobile_number=? and password=? and approval=1', [$request->mobile_number,$request->password,$request->approval]);
-
         foreach ($driverlogin as $key ) {
 
 
@@ -137,10 +151,16 @@ public function driverlogout()
 }
 
 
+public function updatePosition(){
+    $driver=driver::where('mobile_number',Session::get('driverchklogin'))->first();
+    $driver->update([
+        "lat"=>request()->lat,
+        "lon"=>request()->lon,
+    ]);
+}
 
 
-
- public function driverprofile()
+ public function driverprofile() 
     {
          $value = session('driverchklogin');
 

@@ -229,7 +229,8 @@ Route::get('/bike', 'userForm@bike');
 Route::post('/bikeinput', 'userForm@bikeinput')->name('bikeinput');
 Route::get('/bike/start-trip', 'BikeController@startTrip');
 Route::get('/bike/trip/{bikeTrip}', 'BikeController@bikeTrip');
-Route::get('/bike/trip/{bikeTrip}/{driver}', 'BikeController@bikeTripDriver');
+
+
 ///bike/trip/confirm/
 //car
 Route::get('/car', 'userForm@car');
@@ -308,9 +309,16 @@ Route::get('/driverlogout','driverController@driverlogout');
 
 //userprofile
 Route::get('/driverprofile', 'driverController@driverprofile');
+Route::get('/update-position','driverController@updatePosition'); 
 Route::get('/bike/pending', 'driverController@pendingBike');
+//bike/confirm-pickup/
 Route::get('/bike/trip/view/{bikeTrip}', 'driverController@viewBikeTrip');
+Route::get('/bike/confirm-pickup/{bikeTrip}', 'driverController@confirmPickup');
+Route::get('/bike/trip/getStatus/{bikeTrip}', 'BikeController@bikeTripStatus');
 Route::get('/bike/trip/confirm/{bikeTrip}', 'driverController@confirmBikeTrip');
+Route::get('/bike/finish-trip/{bikeTrip}', 'driverController@finishBikeTrip');
 //bike/trip/view/2
-
+///bike/tripe/payment/
+Route::get('bike/trip/payment/{bikeTrip}', 'BikeController@bikeTripPayment');
+Route::get('/bike/trip/{bikeTrip}/{driver}', 'BikeController@bikeTripDriver');
 //

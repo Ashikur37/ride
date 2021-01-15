@@ -7,10 +7,8 @@
     To
     <h4 id="to"></h4>
     <h4 id="distance"></h4>
-    <h4>Call now: {{$bikeTrip->mobile}}</h4>
-    <h4 class="text text-warning">On Pickup</h4>
-
-    <a href="{{URL::to('/bike/confirm-pickup/'.$bikeTrip->id)}}" class="btn btn-success">Confirm Pickup</a>
+    <h4>Running Trip</h4>
+    <a href="{{URL::to('/bike/finish-trip/'.$bikeTrip->id)}}" class="btn btn-success">Finish Trip</a>
 </center>
 <div style="height:400px;padding:20px;margin:30px" id="map"></div>
 
@@ -23,11 +21,12 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
 <script>
-    function calcCrow(lat2,lon2) 
+    function calcCrow() 
     {
       lat1="{{$bikeTrip->lat1}}"
       lon1="{{$bikeTrip->lon1}}"
-
+      lat2="{{$bikeTrip->lat2}}"
+      lon2="{{$bikeTrip->lon2}}"
       var R = 6371; // km
       var dLat = toRad(lat2-lat1);
       var dLon = toRad(lon2-lon1);
@@ -46,6 +45,7 @@
     {
         return Value * Math.PI / 180;
     }
+    document.getElementById('distance').innerHTML="Total distance "+calcCrow()+"KM"
   var pickupPoint=false;
   var destinationPoint=false;
   function codeLatLng(lat, lng,id) {
@@ -86,22 +86,21 @@ geocoder.geocode({'latLng': latlng}, function(results, status) {
 
 
 
-    function initMap(position) {
-      const myLatlng = { lat: position.coords.latitude , lng: position.coords.longitude };
-    document.getElementById('distance').innerHTML="Total distance "+calcCrow(position.coords.latitude,position.coords.longitude)+"KM"
+    function initMap() {
+      const myLatlng = { lat: {{$bikeTrip->lat1}} , lng: {{$bikeTrip->lon1}} };
       
       const map = new google.maps.Map(document.getElementById("map"), {
           zoom: 12,
           center: myLatlng,
       });
-      codeLatLng(position.coords.latitude, position.coords.longitude,'from'); 
-      codeLatLng({{$bikeTrip->lat1}}, {{$bikeTrip->lon1}},'to');
+      codeLatLng({{$bikeTrip->lat1}}, {{$bikeTrip->lon1}},'from');
+      codeLatLng({{$bikeTrip->lat2}}, {{$bikeTrip->lon2}},'to');
       var display = new google.maps.DirectionsRenderer();
         var services = new google.maps.DirectionsService();
       map.setMapTypeId(google.maps.MapTypeId.HYBRID);
       display.setMap(map);
-        var start = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-        var end = new google.maps.LatLng({{$bikeTrip->lat1}},{{$bikeTrip->lon1}});
+        var start = new google.maps.LatLng({{$bikeTrip->lat1}},{{$bikeTrip->lon1}});
+        var end = new google.maps.LatLng({{$bikeTrip->lat2}},{{$bikeTrip->lon2}});
           var request ={
                 origin : start,
                 destination:end,
@@ -113,28 +112,16 @@ geocoder.geocode({'latLng': latlng}, function(results, status) {
                 }
             });
       // Create the initial InfoWindow.
-      let locWindow = new google.maps.InfoWindow({
-          content: "Current Location",
-          position: myLatlng,
-      });
-      locWindow.open(map);
       let pickupWindow = new google.maps.InfoWindow({
           content: "Pickup Point",
-          position: {
-            lat:{{$bikeTrip->lat1}},
-            lng:{{$bikeTrip->lon1}},
-          },
+          position: myLatlng,
       });
       pickupWindow.open(map);
       // Configure the click listener.
 
       }
 
-      if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(initMap);
-} else {
-  x.innerHTML = "Geolocation is not supported by this browser.";
-}
+ initMap()
       function showPosition(position) {
 var latlon = position.coords.latitude + "," + position.coords.longitude;
 

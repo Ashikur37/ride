@@ -23,10 +23,17 @@ class BikeController extends Controller
          return redirect(URL::to('/bike/trip/'.$trip->id));
 
     }
+    public function bikeTripStatus(BikeTrip $bikeTrip){  
+        return ["Waiting for driver","On the pickup","ON going","Finished"][$bikeTrip->status];
+    }
     public function bikeTrip(BikeTrip $bikeTrip){    
-        $drivers= driver::whereDriverType('Bike')->get();
+        $drivers= driver::whereDriverType('Bike')->where('approval',1)->get();
         return view('front.navbar.service.bike-trip',compact('bikeTrip','drivers')); 
 
+    } 
+    public function bikeTripPayment(BikeTrip $bikeTrip){
+
+        return view('front.navbar.service.bike-trip-payment',compact('bikeTrip')); 
     }
     public function bikeTripDriver(BikeTrip $bikeTrip,driver $driver){
           
