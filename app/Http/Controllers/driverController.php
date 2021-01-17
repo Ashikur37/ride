@@ -39,6 +39,14 @@ public function driverregister()
 
         }
 
+        if($request->hasFile('image'))
+        {
+            $file=$request->file('image');
+        $fileNam=time().'.'.$file->getClientOriginalExtension();
+        $file->move('image/',$fileNam);
+
+        }
+
         else
         {
             $fileName = 'no_image.png';
@@ -59,6 +67,7 @@ public function driverregister()
         $drivers->vehicle_registration = $request->input('vehicle_registration');
         $drivers->vehicle_number = $request->input('vehicle_number');
         $drivers->license_document = $fileName; 
+         $drivers->image = $fileNam; 
         $drivers->password = $request->input('password');
  
         $drivers->save();
@@ -78,6 +87,14 @@ public function driverregister()
     {
         return view('front.driver.driverloginpage');
     }
+
+
+
+
+
+
+
+
 
 public function pendingBike(){ 
     $id=driver::where('mobile_number','=',Session::get('driverchklogin'))->first()->id;
@@ -110,6 +127,9 @@ public function confirmPickup(BikeTrip $bikeTrip){
     return view('front.driver.onGoingBikeTrip',compact('bikeTrip'));
     
 }
+
+
+
 
 public function driverlogin(Request $request)
     {

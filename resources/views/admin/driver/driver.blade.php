@@ -42,6 +42,7 @@
 							<th>Vehicle Registration Type</th>
 							<th>Vehicle Registration No</th>
 							<th>License Document</th>
+							<th>Password</th>
 							<th>Image</th>
 							<th>Approval</th>
 							<th>Edit</th>
@@ -66,7 +67,9 @@
 							<td>{{$driver->vehicle_registration}}</td>
 							<td>{{$driver->vehicle_number}}</td>
 							<td> <a class="viewer" href="pdf/{{$driver->license_document}}" style="text-decoration: none;"> {{$driver->license_document}}</a>
+
                 			</td>
+                			<td>{{$driver->password}}</td>
 							<td><img style="width: 100px" class="img-responsive" src="image/{{$driver->image}}" alt=""></td>
  
 	

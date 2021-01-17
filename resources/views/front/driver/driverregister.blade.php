@@ -1,5 +1,5 @@
 @extends('welcome')
-@section('title','Driver Registration')
+@section('title','Vehicle Registration')
 @section('content')
 
 <!-- Content Wrapper -->
@@ -10,14 +10,14 @@
                         <div class="row">
                             <div class="col-sm-8 pull-left">
                                 <div class="title-wrap">
-                                    <h2 class="section-title no-margin"> Page Title </h2>
-                                    <p class="fs-16 no-margin"> Title Info</p>
+                                    <h2 class="section-title no-margin"> Vehicle Registration</h2>
+                                    <p class="fs-16 no-margin"> Please fill up the form</p>
                                 </div>
                             </div>
                             <div class="col-sm-4">                        
                                 <ol class="breadcrumb-menubar list-inline">
                                     <li><a href="{{url('/')}}" class="gray-clr">Home</a></li>                                   
-                                    <li class="active">Title name </li>
+                                    <li class="active">Vehicle Registration </li>
                                 </ol>
                             </div>  
                         </div>
@@ -57,9 +57,9 @@
                         {{csrf_field()}}
   
     <div class="form-group col-md-6">
-                <label for="driver_type">Driver Type <span class="required-star">*</span></label>
+                <label for="driver_type">Vehicle Type <span class="required-star">*</span></label>
                 <select data-bind="in:value" data-name="package" class="selectpicker form-control" data-live-search="true" data-width="100%"
-                     data-toggle="tooltip" title="Driver Type" id="driver_type" name="driver_type">
+                     data-toggle="tooltip" title="Vehicle Type" id="driver_type" name="driver_type">
 
                       <option value="Bike">Bike</option>
                       <option value="Car"> Car</option>
@@ -117,6 +117,13 @@
           <label for="dob">Date of Birth</label>
             <input type="date" class="form-control" id="dob" name="dob" placeholder="Enter your Number" maxlength="20">
      </div>
+
+     <div class="form-row">
+      <div class="form-group col-md-6">
+          <label for="image">Image</label>
+             <input type="file" class="form-control" id="image" name="image" placeholder="Enter your Number" maxlength="20">
+     </div>
+</div>
 
       <div class="form-group col-md-6">
           <label for="mobile_number">Mobile Number</label>

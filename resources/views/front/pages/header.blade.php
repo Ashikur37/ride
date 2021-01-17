@@ -14,6 +14,12 @@
                                     </li>
                                 @endif
 
+                                @if (session('driverchklogin')!=0)
+                                    <li>
+                                        <a href="{{url('/driverprofile')}}">Profile</a>
+                                    </li>
+                                @endif
+
                                     <!--
                                     <li class="active"><a href="#">Privacy</a></li>
                                     <li><a href="#">Pricing</a></li>
@@ -29,7 +35,23 @@
                     </div>
 
  @if (session('userchklogin')==0)
-                    <a data-toggle="modal" href="#login-popup" class="sign-in fs-12 theme-clr-bg"> sign in </a>
+                    
+                            <div id="navbar" class="collapse navbar-collapse no-pad">
+                                    <ul class="navbar-nav ">
+
+                                        <li class="dropdown sign-in fs-12 theme-clr-bg">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" >Sign in </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{{url('/clientloginpage')}}">User</a></li>
+                                                <li><a href="{{url('/driverloginpage')}}">Rider</a></li>
+
+                                            </ul>
+                                        </li>
+                                    </ul>
+                            </div>
+
+
+
 @endif
 
 
@@ -73,8 +95,6 @@
                                                 <li><a href="{{url('/bike')}}">Bike</a></li>
                                                  <li><a href="{{url('/car')}}">Car</a></li>
                                                 <li><a href="{{url('/courier')}}">Courier</a></li>
-                                                
-                                                 <li><a href="{{url('/driverloginpage')}}">Vechicle Type</a></li>
 
                                             </ul>
                                         </li>
