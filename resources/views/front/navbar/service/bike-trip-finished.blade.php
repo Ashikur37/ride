@@ -3,64 +3,39 @@
 @section('content')
 
 <center>
-    <h4 id="from"></h4>
-    To
-    <h4 id="to"></h4>
-    <h4 id="distance"></h4>
-    <h4>Your Trip has been finsihed</h4>
-    <h4 id="cost"></h4>
-    <h4>
-        Pay with 
+    <h4>Your Trip has been finished</h4>
+
+    <h4>Do you want to give a rating to <b>{{$bikeTrip->driver->first_name." ".$bikeTrip->driver->last_name}}</b>?</h4>
+    <form action="{{URL::to('/bike/trip/rating/'.$bikeTrip->id)}}" method="post">
+    @csrf
+    
+    <div class="form-group">
+      <label for="">Review</label>
+      <textarea  name="review" id="" cols="30" rows="3"></textarea>
+    </div>
+        <div class="form-group">
+          <label for="">Rating</label>
+          <select required name="rating" id="" >
+            <option value="">Choose Rating</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        </div>
+        <button class="btn btn-success">
+          Submit
+        </button>
+    </form>
+
+    <h4 id="status" class="text text-warning">
+      @if($bikeTrip->status==0)
+        Waiting For Driver
+      @endif
     </h4>
-    <a class="btn btn-warning" href="{{URL::to('bike/trip/cod/'.$bikeTrip->id)}}">
-      Cash On Delivery
-    </a>
-    <button class="btn btn-info" onclick="document.getElementById('bkash-form').style.display='block'">
-      Bkash
-    </button>
-      <div class="container">
-        <form id="bkash-form" style="display: none" method="post" action="{{URL::to('bike/trip/pay-with-bkash/'.$bikeTrip->id)}}">
-          @csrf
-          <input type="hidden" name="amount" >
-          <h4>Send Money to <u>01624213417</u></h4>
-          <div class="form-group">
-            <label for="">Send From</label>
-            <input name="sender" required type="text" placeholder="Send from" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="">Referance</label>
-          <input name="ref" required type="text" placeholder="Referance" class="form-control">
-          </div>
-          <button class="btn btn-danger btn-block">Pay</button>
-        </form>
-      </div>
 </center>
-@if(!$bikeTrip->bike_id)
-<div class="container">
-  <table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Distance</th>
-          <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-      @foreach($drivers as $driver)
-      <tr>
-        <td>{{$driver->first_name." ".$driver->last_name}}</td>
-        <td>{{$driver->mobile_number}}</td>
-        <td class="distance" lat="{{$driver->lat}}" lon="{{$driver->lon}}"></td>
-        <td>
-          <a class="btn btn-info btn-block" style="color:#fff" href="{{URL::to('bike/trip/'.$bikeTrip->id.'/'.$driver->id)}}">Send Ride Request</a>
-        </td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
-</div>
-@endif
+
 <div style="height:400px;padding:20px;margin:30px" id="map"></div>
 
 
@@ -113,7 +88,6 @@
         return Value * Math.PI / 180;
     }
     document.getElementById('distance').innerHTML="Total distance "+calcCrow()+"KM"
-    document.getElementById('cost').innerHTML="Total Cost "+Math.floor(calcCrow()*12)+"TK"
   var pickupPoint=false;
   var destinationPoint=false;
   function codeLatLng(lat, lng,id) {
@@ -205,7 +179,13 @@ var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&
 document.getElementById("map").innerHTML = "<img src='"+img_url+"'>";
 }
 $(document).ready(function(){
-
+  setInterval(function(){
+    $("#status").load("{{URL::to('/bike/trip/getStatus/'.$bikeTrip->id)}}",function(data){
+      if(data=="Finished"){
+      // window.location.href="{{URL::to('/bike/trip/payment/'.$bikeTrip->id)}}"
+      }
+    })
+  },2000)
   $(".distance").each(function(){
       $(this).html(getDistance($(this).attr('lat'),$(this).attr('lon'))+"km")
   })

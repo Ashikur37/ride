@@ -9,13 +9,58 @@
        @include('links.front_css')
        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCi82DDWkY-_hwoBcUp84sIcnP8pUx8lLc&callback=initMap&libraries=&v=weekly"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCi82DDWkY-_hwoBcUp84sIcnP8pUx8lLc&callback=initMap&libraries=places&v=weekly"
   defer
 ></script> 
         <!--[if lt IE 9]>
         <script src="assets/plugins/iesupport/html5shiv.js"></script>
         <script src="assets/plugins/iesupport/respond.js"></script>
         <![endif]-->
+        <style>
+            .rat {
+    width: 135px;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    position: relative;
+}
+.rat input {
+    padding: 20px;
+    background: #f7f8fa 0% 0% no-repeat padding-box;
+    font-size: 16px;
+    color: #4e4e4e;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+input[type=radio] {
+    background-color: #fff;
+    border: 1px solid #d4d4d4;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    position: relative;
+    outline: none;
+    vertical-align: middle;
+    margin-right: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}
+.rat > label {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 1em;
+    cursor: pointer;
+    color: #000;
+    font-size: 25px;
+}
+        </style>
     </head>
     <body id="home">
         <!-- Preloader -->
