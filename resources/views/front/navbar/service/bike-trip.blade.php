@@ -19,6 +19,7 @@
         Waiting For Driver
       @endif
     </h4>
+    <a style="display: none" id="cancel" class="btn btn-danger" href="{{URL::to('/bike/cancel-trip/'.$bikeTrip->id)}}">Cancel</a>
 </center>
 @if(!$bikeTrip->bike_id)
 <div class="container">
@@ -191,6 +192,12 @@ document.getElementById("map").innerHTML = "<img src='"+img_url+"'>";
 $(document).ready(function(){
   setInterval(function(){
     $("#status").load("{{URL::to('/bike/trip/getStatus/'.$bikeTrip->id)}}",function(data){
+      if(data=="Waiting for driver"){
+        document.getElementById("cancel").style.display="inline-block";
+      }
+      else{
+        document.getElementById("cancel").style.display="none";
+      }
       if(data=="Finished"){
         window.location.href="{{URL::to('/bike/trip/payment/'.$bikeTrip->id)}}"
       }

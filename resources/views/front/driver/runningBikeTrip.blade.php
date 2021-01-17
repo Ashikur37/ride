@@ -8,9 +8,11 @@
     <h4 id="to"></h4>
     <h4 id="distance"></h4>
     <h4>Call now: {{$bikeTrip->mobile}}</h4>
-    <h4 class="text text-warning">On Pickup</h4>
+    <h4 class="text text-warning">
+      Trip has finished
+    </h4>
 
-    <a href="{{URL::to('/bike/confirm-pickup/'.$bikeTrip->id)}}" class="btn btn-success">Confirm Pickup</a>
+    
 </center>
 <div style="height:400px;padding:20px;margin:30px" id="map"></div>
 

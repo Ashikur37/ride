@@ -229,7 +229,7 @@ Route::get('/bike', 'userForm@bike');
 Route::post('/bikeinput', 'userForm@bikeinput')->name('bikeinput');
 Route::get('/bike/start-trip', 'BikeController@startTrip');
 Route::get('/bike/trip/{bikeTrip}', 'BikeController@bikeTrip');
-
+Route::get('/bike/cancel-trip/{bikeTrip}', 'BikeController@cancelTrip');
 
 ///bike/trip/confirm/
 //car
@@ -320,5 +320,12 @@ Route::get('/bike/finish-trip/{bikeTrip}', 'driverController@finishBikeTrip');
 //bike/trip/view/2
 ///bike/tripe/payment/
 Route::get('bike/trip/payment/{bikeTrip}', 'BikeController@bikeTripPayment');
+//bike/trip/cod
+Route::get('bike/trip/cod/{bikeTrip}', 'BikeController@bikeTripCod');
+Route::post('bike/trip/pay-with-bkash/{bikeTrip}', 'BikeController@bikeTripBkash');
+Route::get('bike/trip/finished/{bikeTrip}', 'BikeController@bikeTripFinished');
+Route::post('/bike/trip/rating/{bikeTrip}','BikeController@bikeTripRating');
 Route::get('/bike/trip/{bikeTrip}/{driver}', 'BikeController@bikeTripDriver');
-//
+
+///'
+// ALTER TABLE `bike_trips` ADD `rating` INT NULL AFTER `updated_at`, ADD `review` TEXT NULL AFTER `rating`;
