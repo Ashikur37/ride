@@ -100,7 +100,8 @@ public function finishBikeTrip(BikeTrip $bikeTrip){
     $bikeTrip->update([
         "status"=>3,
     ]);
-    return view('front.driver.runningBikeTrip',compact('bikeTrip'));
+    return view('front.driver.finishBikeTrip',compact('bikeTrip')); 
+    //12
     
 }
 public function confirmPickup(BikeTrip $bikeTrip){
