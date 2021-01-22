@@ -10,13 +10,13 @@
     @if(!$bikeTrip->bike_id)
     <h4>Available Drivers</h4>
     @else
-    <h4>Waiting For Driver</h4>
+    <h4>Driver</h4>
     <h4>{{$bikeTrip->driver->first_name." ".$bikeTrip->driver->last_name}}</h4>
     <h4>Call now: {{$bikeTrip->driver->mobile_number}}</h4>
     @endif
     <h4 id="status" class="text text-warning">
       @if($bikeTrip->status==0)
-        Waiting For Driver
+        Driver
       @endif
     </h4>
     <a style="display: none" id="cancel" class="btn btn-danger" href="{{URL::to('/bike/cancel-trip/'.$bikeTrip->id)}}">Cancel</a>
@@ -98,7 +98,12 @@
     {
         return Value * Math.PI / 180;
     }
-    document.getElementById('distance').innerHTML="Total distance "+calcCrow()+"KM"
+    document.getElementById('distance').innerHTML="Total distance "+calcCrow()+"KM"+"<br/>Total Cost "+Math.floor(calcCrow()*12)+"TK"; 
+    var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+  };
+  xhttp.open("GET", "{{URL::to('/bike/trip/set-rent/'.$bikeTrip->id)}}/"+Math.floor(calcCrow()*12), true);
+  xhttp.send();
   var pickupPoint=false;
   var destinationPoint=false;
   function codeLatLng(lat, lng,id) {

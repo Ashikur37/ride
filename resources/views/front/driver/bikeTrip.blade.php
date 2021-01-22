@@ -12,7 +12,7 @@
 <div style="height:400px;padding:20px;margin:30px" id="map"></div>
 
 
-
+ 
 
 
 
@@ -44,7 +44,7 @@
     {
         return Value * Math.PI / 180;
     }
-    document.getElementById('distance').innerHTML="Total distance "+calcCrow()+"KM"
+    document.getElementById('distance').innerHTML="Total distance "+calcCrow()+"KM"+"<br/>Total Cost "+Math.floor(calcCrow()*12)+"TK"; 
   var pickupPoint=false;
   var destinationPoint=false;
   function codeLatLng(lat, lng,id) {

@@ -11,6 +11,7 @@
             <th>Phone</th>
             <th>From</th>
             <th>To</th>
+            <th>Rent</th>
             <th>Applied At</th>
             <th>Action</th>
         </tr>
@@ -22,6 +23,7 @@
                 <td>{{$trip->client->mobile}}</td>
                 <td data-id="from{{$trip->id}}" id="from{{$trip->id}}" class="position" lat="{{$trip->lat1}}" lon="{{$trip->lon1}}"></td>
                 <td data-id="to{{$trip->id}}" id="to{{$trip->id}}" class="position" lat="{{$trip->lat2}}" lon="{{$trip->lon2}}"></td>
+                <td>{{$trip->amount}}TK</td>
                 <td>{{$trip->created_at->diffForHumans()}}</td>
                 <td>
                     <a class="btn btn-primary" style="color:#fff" href="{{URL::to('/bike/trip/view/'.$trip->id)}}">View</a>

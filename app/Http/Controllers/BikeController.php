@@ -24,13 +24,18 @@ class BikeController extends Controller
 
     }
     public function bikeTripStatus(BikeTrip $bikeTrip){  
-        return ["Waiting for driver","On the pickup","ON going","Finished"][$bikeTrip->status];
+        return ["Driver","On the pickup","ON going","Finished"][$bikeTrip->status];
+    }
+    public function bikeTripSetRent(BikeTrip $bikeTrip,$rent){
+        $bikeTrip->update([
+            "amount"=>$rent
+        ]);
     }
     public function bikeTrip(BikeTrip $bikeTrip){
         $ids=BikeTrip::whereIn('status',[1,2])->pluck('bike_id')->toArray();
          
         $drivers= driver::whereDriverType('Bike')->where('approval',1)->whereNotIn('id',$ids)->get(); 
-        return view('front.navbar.service.bike-trip',compact('bikeTrip','drivers')); 
+        return view('front.navbar.service.bike-trip',compact('bikeTrip','drivers'));  
 
     } 
     public function cancelTrip(BikeTrip $bikeTrip){  

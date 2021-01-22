@@ -229,6 +229,8 @@ Route::get('/bike', 'userForm@bike');
 Route::post('/bikeinput', 'userForm@bikeinput')->name('bikeinput');
 Route::get('/bike/start-trip', 'BikeController@startTrip');
 Route::get('/bike/trip/{bikeTrip}', 'BikeController@bikeTrip');
+Route::get('bike/trip/set-rent/{bikeTrip}/{rent}', 'BikeController@bikeTripSetRent');
+///
 Route::get('/bike/cancel-trip/{bikeTrip}', 'BikeController@cancelTrip');
 
 ///bike/trip/confirm/
