@@ -58,11 +58,9 @@
                  <br>
 
                  <br>
-                <h3><a href="orderdetails" style="color: blue"> My Order Details</a></h3>
+                
             </div>
-            <div class="col-md-6">
-                    <iframe src="https://www.google.com/maps/d/embed?mid=1eDH-4TbqmqeG7ZITkb7HZQ-ZjB8h1VSy" width="640" height="480"></iframe>
-            </div>
+            
 
         </div>
     </div>

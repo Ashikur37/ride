@@ -15,7 +15,7 @@
                             <li><a href="#">secured</a></li>
                             <li><a href="#">Districtwide</a></li>
                         </ul>
-                        <h2 class="section-title fs-48 effect animated wow fadeInUp" data-wow-offset="50" data-wow-delay=".20s"> delivery <br> <span class="theme-clr"> service </span> & <span class="theme-clr"> System </span> </h2>
+                        <h2 class="section-title fs-48 effect animated wow fadeInUp" data-wow-offset="50" data-wow-delay=".20s">  <br> <span class="theme-clr"> RideJoy </span>  <span class="theme-clr">  </span> </h2>
                     </div>
                     <div class="pad-50 visible-lg"></div>
                 </section>

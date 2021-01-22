@@ -77,7 +77,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-logo" href="#"> <img src="{{URL::to('front/assets/img/logo/logo-black.png')}}" alt="logo" /> </a>
+                                <a class="navbar-logo" href="#"> <img src="{{URL::to('front/assets/img/logo/logo2.jpg')}}" alt="logo" /> </a>
                             </div>
                             <div class="col-md-10 col-sm-10 fs-12">
                                 <div id="navbar" class="collapse navbar-collapse no-pad">
@@ -85,16 +85,14 @@
 
                                          <li class="active"> <a href="{{url('/')}}">Home</a> </li>
 
-                                         <li> <a href="{{url('tracking')}}">Tracking</a> </li>
+                                        
 
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" >Services </a>
                                             <ul class="dropdown-menu">
-                                                <li><a href="{{url('/percel')}}">Parcel</a></li>
-                                                <li><a href="{{url('/food')}}">Food</a></li>
                                                 <li><a href="{{url('/bike')}}">Bike</a></li>
                                                  <li><a href="{{url('/car')}}">Car</a></li>
-                                                <li><a href="{{url('/courier')}}">Courier</a></li>
+                                               
 
                                             </ul>
                                         </li>
@@ -103,7 +101,7 @@
 
                                        
                                         
-                                        <li> <a href="{{url('/pricing')}}"> pricing </a> </li>
+                                       
                                         <li> <a href="{{url('/contact')}}"> contact </a> </li>
                                          
                                          @if(Session::has('driverchklogin'))
