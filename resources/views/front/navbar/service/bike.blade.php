@@ -11,9 +11,11 @@
   <h4>Please Login To continue</h4>
 </center>
 @endif
-<h4 id="distance">
+<center>
+  <h4 id="distance">
 
-</h4>
+  </h4>
+</center>
 <input
       id="pac-input"
       class="controls"
@@ -64,7 +66,7 @@
     }
   function updateDistance(){
     if(destinationPoint){
-      document.getElementById("distance").innerHTML="Trip distance "+calcCrow()+" KM";
+      document.getElementById("distance").innerHTML="Trip distance "+calcCrow()+" KM"+"<br/>Total Cost "+Math.floor(calcCrow()*12)+"TK"; 
     }
   }
     function initMap(position) {
