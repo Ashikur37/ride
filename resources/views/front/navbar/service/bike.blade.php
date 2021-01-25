@@ -21,7 +21,14 @@
       class="controls"
       style="margin-left:250px;width:350px;height:30px"
       type="text"
-      placeholder="Search Box"
+      placeholder="Pickup Point"
+    />
+    <input
+      id="pac-input2"
+      class="controls"
+      style="margin-left:250px;width:350px;height:30px"
+      type="text"
+      placeholder="Destination Point"
     />
 <div style="height:400px;padding:20px;margin:30px" id="map"></div>
 
@@ -80,11 +87,17 @@
           center: myLatlng,
       });
       const input = document.getElementById("pac-input");
+      const input2 = document.getElementById("pac-input2");
       const searchBox = new google.maps.places.SearchBox(input);
+      const searchBox2 = new google.maps.places.SearchBox(input2);
       map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+      map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input2);
   // Bias the SearchBox results towards current map's viewport.
   map.addListener("bounds_changed", () => {
     searchBox.setBounds(map.getBounds());
+  });
+  map.addListener("bounds_changed", () => {
+    searchBox2.setBounds(map.getBounds());
   });
   let markers = [];
   // Listen for the event fired when the user selects a prediction and retrieve
@@ -123,6 +136,43 @@
           position: place.geometry.location,
         })
       );
+     // console.log(place.geometry.location.lat());
+
+     pickupPoint={
+            lat:place.geometry.location.lat(),
+            lng:place.geometry.location.lng()
+          };
+         // console.log(mapsMouseEvent.latLng.lat())
+       
+          
+          pickupWindow.close();
+          pickupWindow = new google.maps.InfoWindow({
+          position: place.geometry.location,
+          });
+          pickupWindow.setContent(
+            "Pickup Point"
+          // JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+          );
+          pickupWindow.open(map);
+          updateDistance()
+          if(destinationPoint){
+            display.setMap(map);
+        var start = new google.maps.LatLng(pickupPoint.lat,pickupPoint.lng);
+        var end = new google.maps.LatLng(destinationPoint.lat,destinationPoint.lng);
+          var request ={
+                origin : start,
+                destination:end,
+                travelMode: 'DRIVING'
+            };
+            services.route(request,function(result,status){
+                if(status =='OK'){
+                    display.setDirections(result);
+                }
+            });
+          }
+        
+
+
 
       if (place.geometry.viewport) {
         // Only geocodes have viewport.
@@ -133,6 +183,93 @@
     });
     map.fitBounds(bounds);
   });
+
+
+  searchBox2.addListener("places_changed", () => {
+    const places = searchBox2.getPlaces();
+
+    if (places.length == 0) {
+      return;
+    }
+    // Clear out the old markers.
+    markers.forEach((marker) => {
+      marker.setMap(null);
+    });
+    markers = [];
+    // For each place, get the icon, name and location.
+    const bounds = new google.maps.LatLngBounds();
+    places.forEach((place) => {
+      if (!place.geometry) {
+        console.log("Returned place contains no geometry");
+        return;
+      }
+      const icon = {
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25),
+      };
+      // Create a marker for each place.
+      markers.push(
+        new google.maps.Marker({
+          map,
+          icon,
+          title: place.name,
+          position: place.geometry.location,
+        })
+      );
+     // console.log(place.geometry.location.lat());
+
+     destinationPoint={
+            lat:place.geometry.location.lat(),
+            lng:place.geometry.location.lng()
+          };
+         // console.log(mapsMouseEvent.latLng.lat())
+       
+          
+         if(typeof destinationWindow !== 'undefined'){
+            destinationWindow.close();
+          }
+          destinationWindow = new google.maps.InfoWindow({
+          position: place.geometry.location,
+          });
+          destinationWindow.setContent(
+            "Destination Point"
+          // JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+          );
+          destinationWindow.open(map);
+          updateDistance()
+          if(destinationPoint){
+            display.setMap(map);
+        var start = new google.maps.LatLng(pickupPoint.lat,pickupPoint.lng);
+        var end = new google.maps.LatLng(destinationPoint.lat,destinationPoint.lng);
+          var request ={
+                origin : start,
+                destination:end,
+                travelMode: 'DRIVING'
+            };
+            services.route(request,function(result,status){
+                if(status =='OK'){
+                    display.setDirections(result);
+                }
+            });
+          }
+        
+
+
+
+      if (place.geometry.viewport) {
+        // Only geocodes have viewport.
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+    map.fitBounds(bounds);
+  });
+
+
       var display = new google.maps.DirectionsRenderer();
         var services = new google.maps.DirectionsService();
       map.setMapTypeId(google.maps.MapTypeId.HYBRID);

@@ -22,7 +22,7 @@
         <form id="bkash-form" style="display: none" method="post" action="{{URL::to('bike/trip/pay-with-bkash/'.$bikeTrip->id)}}">
           @csrf
           <input type="hidden" name="amount" >
-          <h4>Send Money to <u>01624213417</u></h4>
+          <h4>Send Money to <u>{{$bikeTrip->driver->mobile_number}}</u></h4>
           <div class="form-group">
             <label for="">Send From</label>
             <input name="sender" required type="text" placeholder="Send from" class="form-control">

@@ -27,6 +27,9 @@
                 <td>{{$trip->created_at->diffForHumans()}}</td>
                 <td>
                     <a class="btn btn-primary" style="color:#fff" href="{{URL::to('/bike/trip/view/'.$trip->id)}}">View</a>
+                    <a class="btn btn-danger" style="color:#fff" href="{{URL::to('/bike/trip/cancel/'.$trip->id)}}">
+                        Cancel
+                    </a>
                 </td> 
 
  

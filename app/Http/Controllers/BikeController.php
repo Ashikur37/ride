@@ -24,7 +24,7 @@ class BikeController extends Controller
 
     }
     public function bikeTripStatus(BikeTrip $bikeTrip){  
-        return ["Driver","On the pickup","ON going","Finished"][$bikeTrip->status];
+        return ["Waiting For Driver","On the pickup","ON going","Finished","Canceled"][$bikeTrip->status];
     }
     public function bikeTripSetRent(BikeTrip $bikeTrip,$rent){
         $bikeTrip->update([
@@ -40,13 +40,23 @@ class BikeController extends Controller
     } 
     public function cancelTrip(BikeTrip $bikeTrip){  
         $bikeTrip->update([
-            "status"=>-1
+            "status"=>4
         ]);
         return redirect('/bike');
     }
     public function bikeTripPayment(BikeTrip $bikeTrip){
 
         return view('front.navbar.service.bike-trip-payment',compact('bikeTrip'));  
+    }
+    public function resetDriver(BikeTrip $bikeTrip){
+        $ids=BikeTrip::whereIn('status',[1,2])->pluck('bike_id')->toArray();
+        
+        $drivers= driver::whereDriverType('Bike')->where('id','!=',$bikeTrip->bike_id)->where('approval',1)->whereNotIn('id',$ids)->get(); 
+        $bikeTrip->update([
+            "status"=>0,
+            "bike_id"=>0
+        ]);
+        return view('front.navbar.service.bike-trip',compact('bikeTrip','drivers'));
     }
     public function bikeTripCod(BikeTrip $bikeTrip){
         $bikeTrip->update([
