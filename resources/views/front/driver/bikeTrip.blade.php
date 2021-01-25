@@ -8,6 +8,9 @@
     <h4 id="to"></h4>
     <h4 id="distance"></h4>
     <a href="{{URL::to('/bike/trip/confirm/'.$bikeTrip->id)}}" class="btn btn-success" style="color:#fff">Confirm Now</a>
+    <a class="btn btn-danger" style="color:#fff" href="{{URL::to('/bike/trip/cancel/'.$bikeTrip->id)}}">
+      Cancel
+  </a>
 </center>
 <div style="height:400px;padding:20px;margin:30px" id="map"></div>
 

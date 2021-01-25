@@ -319,9 +319,13 @@ Route::get('/bike/confirm-pickup/{bikeTrip}', 'driverController@confirmPickup');
 Route::get('/bike/trip/getStatus/{bikeTrip}', 'BikeController@bikeTripStatus');
 Route::get('/bike/trip/confirm/{bikeTrip}', 'driverController@confirmBikeTrip');
 Route::get('/bike/finish-trip/{bikeTrip}', 'driverController@finishBikeTrip');
+Route::get('/bike/trip/cancel/{bikeTrip}', 'driverController@cancelBikeTrip');
+//bike/trip/cancel/13
 //bike/trip/view/2
 ///bike/tripe/payment/
 Route::get('bike/trip/payment/{bikeTrip}', 'BikeController@bikeTripPayment');
+Route::get('bike/trip/reset-driver/{bikeTrip}', 'BikeController@resetDriver');
+//trip/reset-driver/16
 //bike/trip/cod
 Route::get('bike/trip/cod/{bikeTrip}', 'BikeController@bikeTripCod');
 Route::post('bike/trip/pay-with-bkash/{bikeTrip}', 'BikeController@bikeTripBkash');

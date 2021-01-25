@@ -98,13 +98,18 @@ public function driverregister()
 
 public function pendingBike(){ 
     $id=driver::where('mobile_number','=',Session::get('driverchklogin'))->first()->id;
-    
     $trips=BikeTrip::whereStatus(0)->where('bike_id',$id)->latest()->get();
 
     return view ('front.driver.bikeTrips',compact('trips'));
 }
 public function viewBikeTrip(BikeTrip $bikeTrip){
     return view ('front.driver.bikeTrip',compact('bikeTrip'));
+}
+public function cancelBikeTrip(BikeTrip $bikeTrip){
+    $bikeTrip->update([
+        "status"=>4
+    ]);
+    return redirect('/bike/pending');
 }
 public function confirmBikeTrip(BikeTrip $bikeTrip){
     $bikeTrip->update([
@@ -121,6 +126,7 @@ public function finishBikeTrip(BikeTrip $bikeTrip){
     //12
     
 }
+
 public function confirmPickup(BikeTrip $bikeTrip){
     $bikeTrip->update([
         "status"=>2,

@@ -16,7 +16,7 @@
     @endif
     <h4 id="status" class="text text-warning">
       @if($bikeTrip->status==0)
-        Driver
+       Waiting For Driver
       @endif
     </h4>
     <a style="display: none" id="cancel" class="btn btn-danger" href="{{URL::to('/bike/cancel-trip/'.$bikeTrip->id)}}">Cancel</a>
@@ -27,6 +27,7 @@
     <thead>
         <tr>
           <th>Name</th>
+          <th>Rating</th> 
           <th>Phone</th>
           <th>Distance</th>
           <th>Action</th>
@@ -36,6 +37,7 @@
       @foreach($drivers as $driver)
       <tr>
         <td>{{$driver->first_name." ".$driver->last_name}}</td>
+        <td>{{$driver->rating()}}/5</td>
         <td>{{$driver->mobile_number}}</td>
         <td class="distance" lat="{{$driver->lat}}" lon="{{$driver->lon}}"></td>
         <td>
@@ -205,6 +207,10 @@ $(document).ready(function(){
       }
       if(data=="Finished"){
         window.location.href="{{URL::to('/bike/trip/payment/'.$bikeTrip->id)}}"
+      }
+      if(data=='Canceled'){
+        alert("Trip has been canceled. Select another driver");
+        window.location.href="{{URL::to('/bike/trip/reset-driver/'.$bikeTrip->id)}}"
       }
     })
   },2000)
