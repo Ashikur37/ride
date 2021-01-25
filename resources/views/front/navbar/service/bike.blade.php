@@ -156,6 +156,7 @@
           pickupWindow.open(map);
           updateDistance()
           if(destinationPoint){
+            
             display.setMap(map);
         var start = new google.maps.LatLng(pickupPoint.lat,pickupPoint.lng);
         var end = new google.maps.LatLng(destinationPoint.lat,destinationPoint.lng);
@@ -186,6 +187,7 @@
 
 
   searchBox2.addListener("places_changed", () => {
+    document.getElementById("trip-button").disabled=false;
     const places = searchBox2.getPlaces();
 
     if (places.length == 0) {
