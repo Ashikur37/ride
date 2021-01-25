@@ -22,7 +22,7 @@
                             <div class="col-sm-4">                        
                                 <ol class="breadcrumb-menubar list-inline">
                                     <li><a href="{{url('/')}}" class="gray-clr">Home</a></li>                                   
-                                    <li class="active">Profile </li>
+                                    <li><a href="{{url('userprofile')}}" class="gray-clr">Profile</a></li>
 
                                     <li class="active"><a href="{{url('/profileeditreq',$userprofile->id)}}" class=""><b>Edit</b></a> </li>
                                      

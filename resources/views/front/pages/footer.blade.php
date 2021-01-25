@@ -3,7 +3,7 @@
                     <div class="theme-container container">               
                         <div class="row">
                             <div class="col-md-3 col-sm-6 footer-widget">
-                                <a href="#"> <img class="logo" alt="#" src="front/assets/img/logo/logo-white.png" />  </a>
+                                <a href="#"> <img class="logo" alt="#" src="front/assets/img/logo/logo_header.png" />  </a>
                             </div>
 
                              <div class="col-md-3 col-sm-6 footer-widget">

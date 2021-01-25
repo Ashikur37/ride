@@ -77,7 +77,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-logo" href="#"> <img src="{{URL::to('front/assets/img/logo/logo2.jpg')}}" alt="logo" /> </a>
+                                <a class="navbar-logo" href="#"> <img src="{{URL::to('front/assets/img/logo/logo_header.png')}}" alt="logo" /> </a>
                             </div>
                             <div class="col-md-10 col-sm-10 fs-12">
                                 <div id="navbar" class="collapse navbar-collapse no-pad">
