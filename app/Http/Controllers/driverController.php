@@ -6,6 +6,7 @@ use App\BikeTrip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\driver;
+use App\CarTrip;
 use Illuminate\Support\Facades\Session;
 
 class driverController extends Controller
@@ -127,11 +128,53 @@ public function finishBikeTrip(BikeTrip $bikeTrip){
     
 }
 
-public function confirmPickup(BikeTrip $bikeTrip){
+public function confirmPickupBike(BikeTrip $bikeTrip){ 
     $bikeTrip->update([
         "status"=>2,
     ]);
     return view('front.driver.onGoingBikeTrip',compact('bikeTrip'));
+    
+}
+
+
+
+
+public function pendingCar(){ 
+    $id=driver::where('mobile_number','=',Session::get('driverchklogin'))->first()->id;
+    $trips=CarTrip::whereStatus(0)->where('car_id',$id)->latest()->get();
+
+    return view ('front.driver.carTrips',compact('trips'));
+}
+public function viewCarTrip(CarTrip $carTrip){
+    return view ('front.driver.carTrip',compact('carTrip'));
+}
+public function cancelCarTrip(CarTrip $carTrip){
+    $carTrip->update([
+        "status"=>4
+    ]);
+    return redirect('/car/pending');
+}
+public function confirmCarTrip(CarTrip $carTrip){
+    $carTrip->update([
+        "status"=>1,
+    ]);
+    return view('front.driver.runningCarTrip',compact('carTrip'));
+    
+}
+public function finishCarTrip(CarTrip $carTrip){
+    $carTrip->update([
+        "status"=>3,
+    ]);
+    return view('front.driver.finishCarTrip',compact('carTrip')); 
+    //12
+    
+}
+
+public function confirmPickupCar(CarTrip $carTrip){ 
+    $carTrip->update([
+        "status"=>2,
+    ]);
+    return view('front.driver.onGoingCarTrip',compact('carTrip'));
     
 }
 
@@ -149,8 +192,7 @@ public function driverlogin(Request $request)
                  
 
                  session(['driverchklogin' => $request->mobile_number]);
-
-
+                 session(['type' => DB::select('select * from drivers where mobile_number=? and password=? and approval=1', [$request->mobile_number,$request->password,$request->approval])[0]->driver_type]);
              return redirect  ('/driverprofile');
 
          }else

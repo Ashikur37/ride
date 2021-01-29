@@ -20,7 +20,7 @@ class CarTrip extends Migration
             $table->string('lon1');
             $table->string('lon2');
             $table->string('mobile');
-            $table->integer('bike_id')->default(0);
+            $table->integer('car_id')->default(0);
             $table->double('amount');
             $table->integer('status')->default(0);
             $table->integer('payment_status')->default(0);

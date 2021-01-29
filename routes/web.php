@@ -323,7 +323,7 @@ Route::get('/update-position','driverController@updatePosition');
 Route::get('/bike/pending', 'driverController@pendingBike');
 
 Route::get('/bike/trip/view/{bikeTrip}', 'driverController@viewBikeTrip');
-Route::get('/bike/confirm-pickup/{bikeTrip}', 'driverController@confirmPickup');
+Route::get('/bike/confirm-pickup/{bikeTrip}', 'driverController@confirmPickupBike');
 Route::get('/bike/trip/getStatus/{bikeTrip}', 'BikeController@bikeTripStatus');
 Route::get('/bike/trip/confirm/{bikeTrip}', 'driverController@confirmBikeTrip');
 Route::get('/bike/finish-trip/{bikeTrip}', 'driverController@finishBikeTrip');
@@ -337,6 +337,25 @@ Route::post('bike/trip/pay-with-bkash/{bikeTrip}', 'BikeController@bikeTripBkash
 Route::get('bike/trip/finished/{bikeTrip}', 'BikeController@bikeTripFinished');
 Route::post('/bike/trip/rating/{bikeTrip}','BikeController@bikeTripRating');
 Route::get('/bike/trip/{bikeTrip}/{driver}', 'BikeController@bikeTripDriver');
+
+
+Route::get('/car/pending', 'driverController@pendingCar');
+
+Route::get('/car/trip/view/{carTrip}', 'driverController@viewCarTrip');
+Route::get('/car/confirm-pickup/{carTrip}', 'driverController@confirmPickupCar');
+Route::get('/car/trip/getStatus/{carTrip}', 'CarController@carTripStatus');
+Route::get('/car/trip/confirm/{carTrip}', 'driverController@confirmCarTrip');
+Route::get('/car/finish-trip/{carTrip}', 'driverController@finishCarTrip');
+Route::get('/car/trip/cancel/{carTrip}', 'driverController@cancelCarTrip');
+
+Route::get('car/trip/payment/{carTrip}', 'CarController@carTripPayment');
+Route::get('car/trip/reset-driver/{carTrip}', 'CarController@resetDriver');
+
+Route::get('car/trip/cod/{carTrip}', 'CarController@carTripCod');
+Route::post('car/trip/pay-with-bkash/{carTrip}', 'CarController@carTripBkash');
+Route::get('car/trip/finished/{carTrip}', 'CarController@carTripFinished');
+Route::post('/car/trip/rating/{carTrip}','CarController@carTripRating');
+Route::get('/car/trip/{carTrip}/{driver}', 'CarController@carTripDriver');
 
 ///'
 // ALTER TABLE `bike_trips` ADD `rating` INT NULL AFTER `updated_at`, ADD `review` TEXT NULL AFTER `rating`;
