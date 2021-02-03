@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use SoapClient;
+
 class tableController extends Controller
 {
     /**
@@ -93,7 +96,7 @@ public function Adriver()
     {
         $driver = DB::select('select * from drivers', []);
 
-        return view('admin.driver.driver',compact('driver'));
+        return view('admin.driver.driver',compact('driver')); 
 
     }
 
@@ -170,7 +173,23 @@ public function Adriversearch(Request $request)
     public function driverapproval($mobile_number)
     {
          $driver = DB::update('update drivers set approval=1  where mobile_number=?',[$mobile_number]);
-
+        //send the sms
+        try{
+        $soapClient = new SoapClient("https://api2.onnorokomSMS.com/sendSMS.asmx?wsdl");
+        $paramArray = array(
+        'userName' => "01825314306",
+        'userPassword' => "2978d85534",
+        'mobileNumber' => $mobile_number,
+        'smsText' => "Your account has been approved successfully",
+        'type' => "TEXT",
+        'maskName' => '',
+        'campaignName' => '',
+        );
+        $value = $soapClient->__call("OneToOne", array($paramArray));
+        echo $value->OneToOneResult;
+        } catch (Exception $e) {
+        echo $e->getMessage();
+        }
         
       return redirect ('/Adriver');   
 }

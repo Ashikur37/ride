@@ -199,7 +199,7 @@ document.getElementById("map").innerHTML = "<img src='"+img_url+"'>";
 $(document).ready(function(){
   setInterval(function(){
     $("#status").load("{{URL::to('/bike/trip/getStatus/'.$bikeTrip->id)}}",function(data){
-      if(data=="Waiting for driver"){
+      if(data=="Waiting For Driver"){
         document.getElementById("cancel").style.display="inline-block";
       }
       else{
